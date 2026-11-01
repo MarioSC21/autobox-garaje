@@ -12,6 +12,8 @@ En Android, el HTML abierto por el explorador (`content://…`) no se instala co
 
 ## Operar
 
+En Cobrar, el selector Ticket / Placa separa la búsqueda: Ticket acepta 5 o 00005 y coincide solo con el número exacto del boleto; Placa busca únicamente en las placas, incluso si escribes números. Cambiar la opción limpia la consulta. Al salir de Cobrar también se limpia. Escanear un QR selecciona automáticamente Ticket.
+
 - Navegación inferior: Inicio, Registrar, Cobrar y Ajustes. El historial se abre desde Inicio, y los tickets desde Ajustes.
 - Registrar: solo talonario, placa, categoría y registro. «Ajustar folio» permite elegir el boleto en mano o leer su QR. «Saltar ticket» permite avanzar a otro número sin registrar vehículos ni cobros (por ejemplo, de 00001 a 00005 si se perdió un boleto). Evita placas duplicadas y respeta la capacidad configurada.
 - «Dejó llave» es un interruptor opcional en Registrar. Se muestra en Cobrar y en el detalle; se conserva en JSON y en la columna `dejo_llave` del CSV. Los respaldos antiguos sin esa opción siguen siendo compatibles.

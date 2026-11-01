@@ -15,7 +15,7 @@ export function paymentTotal(gross,discount,status){
  return total;
 }
 export function normalizePlate(s){return s.toUpperCase().replace(/[^A-Z0-9]/g,'');}
-export function matchesVehicle(v,query){const text=String(query??'').trim().toUpperCase();if(!text)return true;const code=text.match(/^(?:TK-(\d{1,8})-ABX|#?(\d{1,8}))$/);if(code&&Number(code[1]||code[2])===v.ticket)return true;const plateQuery=normalizePlate(text);return !!plateQuery&&normalizePlate(v.plate).includes(plateQuery);}
+export function matchesVehicle(v,query,mode='all'){const text=String(query??'').trim().toUpperCase();if(!text)return true;const code=text.match(/^(?:TK-(\d{1,8})-ABX|#?(\d{1,8}))$/);if(mode==='ticket')return !!code&&Number(code[1]||code[2])===v.ticket;if(mode!=='plate'&&code&&Number(code[1]||code[2])===v.ticket)return true;const plateQuery=normalizePlate(text);return !!plateQuery&&normalizePlate(v.plate).includes(plateQuery);}
 export function formatPlate(s){
  const clean=s.toUpperCase().replace(/[^A-Z0-9-]/g,''),raw=normalizePlate(clean);
  if(/^[A-Z]{2}\d{4}$/.test(raw))return raw.slice(0,2)+'-'+raw.slice(2);
