@@ -1,6 +1,6 @@
-const CACHE='autobox-shell-cb40e037bf60';
+const CACHE='autobox-shell-a861e5dc0807';
 const ASSETS=['./','./index.html','./style.css','./app.js','./core.js','./qr.js','./scan.js','./vendor/qrcode.js','./vendor/jsQR.js','./icon.svg','./icon-192.png','./icon-512.png','./icon-maskable-512.png','./manifest.webmanifest','./AutoBox-portatil.html'];
-const VERSIONED_ASSETS=["./app.js?v=b8aa748ca695","./style.css?v=b8aa748ca695"];
+const VERSIONED_ASSETS=["./app.js?v=014de729185b","./style.css?v=014de729185b"];
 self.addEventListener('install',event=>event.waitUntil((async()=>{const cache=await caches.open(CACHE);await Promise.all([...ASSETS,...VERSIONED_ASSETS].map(async asset=>{const url=new URL(asset,self.location);url.searchParams.set('release',CACHE);const response=await fetch(url,{cache:'no-store'});if(!response.ok)throw Error('No se pudo actualizar '+asset);await cache.put(new URL(asset,self.location),response);}));await self.skipWaiting();})()));
 self.addEventListener('activate',event=>event.waitUntil(caches.keys().then(keys=>Promise.all(keys.filter(k=>k.startsWith('autobox-shell-')&&k!==CACHE).map(k=>caches.delete(k)))).then(()=>self.clients.claim())));
 self.addEventListener('fetch',event=>{const url=new URL(event.request.url);if(event.request.method!=='GET'||url.origin!==self.location.origin)return;if(event.request.mode==='navigate'){event.respondWith(fetch(event.request,{cache:'no-store'}).then(response=>{if(!response.ok)throw Error('Sin conexión');return response;}).catch(()=>caches.open(CACHE).then(cache=>cache.match('./index.html'))));return;}event.respondWith(caches.open(CACHE).then(cache=>cache.match(event.request)).then(cached=>cached||fetch(event.request)));});
