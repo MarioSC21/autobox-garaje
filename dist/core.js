@@ -1,5 +1,12 @@
 export const DEFAULTS={name:'Mi garaje',currency:'S/',capacity:40,rates:{auto:5,moto:3,camioneta:7},tolerance:10,block:60,ticketEnd:1000,nextTicket:1};
 export const fresh=()=>({version:1,settings:structuredClone(DEFAULTS),visits:[],backupAt:null});
+export async function verifyMasterKey(value){
+ if(typeof value!=='string'||!value)return false;
+ if(!globalThis.crypto?.subtle)throw Error('No se puede verificar la clave. Abre AutoBox desde el enlace HTTPS o la app instalada.');
+ const encoder=new TextEncoder(),key=await crypto.subtle.importKey('raw',encoder.encode(value),'PBKDF2',false,['deriveBits']);
+ const bits=await crypto.subtle.deriveBits({name:'PBKDF2',salt:encoder.encode('d0c86e96e2f7767c69be0c0176a7d77d'),iterations:150000,hash:'SHA-256'},key,256);
+ return Array.from(new Uint8Array(bits),n=>n.toString(16).padStart(2,'0')).join('')==='c88c16d981498516fceaa9983a51c354c69a9e33ea70d5b50126b94b956827b2';
+}
 export function paymentTotal(gross,discount,status){
  if(!Number.isFinite(gross)||!Number.isFinite(discount)||gross<0||discount<0||discount>gross)throw Error('La exoneración debe estar entre cero y el importe original.');
  if(!['paid','unpaid'].includes(status))throw Error('Elige si ya pagó o no pagó.');
