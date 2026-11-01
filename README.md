@@ -8,7 +8,7 @@ Ejecuta `npm start` y abre http://localhost:4173. La publicación HTTPS permite 
 
 La versión `dist/AutoBox-portatil.html` incluye todo en un archivo sin dependencias. Transfiérelo al dispositivo y ábrelo en un navegador que permita archivos HTML locales y almacenamiento. En celulares la PWA instalada es la opción recomendada. La versión portátil y la web guardan datos por separado; transfiérelos con un respaldo.
 
-En Android, el HTML abierto por el explorador (`content://…`) no se instala como PWA y puede bloquear la cámara. Para instalación y cámara, abre el enlace HTTPS directamente en Chrome, inicia sesión si el sitio privado lo solicita y usa Ajustes → Usar sin internet → Instalar AutoBox, o el menú de Chrome → Agregar a pantalla principal → Instalar. El botón muestra instrucciones cuando Chrome aún no ofrece el aviso nativo. Espera «Disponible sin conexión» antes de desconectarte. Si el permiso de cámara fue rechazado, revisa Configuración del sitio → Cámara → Permitir. Los iconos PNG de 192 y 512 píxeles y el icono maskable están incluidos en la caché sin conexión.
+En Android, el HTML abierto por el explorador (`content://…`) no se instala como PWA y puede bloquear la cámara. Para instalación y cámara, abre el enlace HTTPS directamente en Chrome, usa Ajustes → Usar sin internet → Instalar AutoBox, o el menú de Chrome → Agregar a pantalla principal → Instalar. El botón muestra instrucciones cuando Chrome aún no ofrece el aviso nativo. Espera «Disponible sin conexión» antes de desconectarte. Si el permiso de cámara fue rechazado, revisa Configuración del sitio → Cámara → Permitir. Los iconos PNG de 192 y 512 píxeles y el icono maskable están incluidos en la caché sin conexión.
 
 ## Operar
 
@@ -45,3 +45,12 @@ LocalStorage guarda los datos. El borrado del navegador, modo privado o cambio d
 ## Verificación
 
 `npm test`: cálculo en los límites, tolerancia, tickets, ida y vuelta CSV/JSON, rechazo de datos inconsistentes y lectura real de matrices QR generadas para números pequeños y grandes. `npm run portable`: reconstruye el archivo portátil tras cambiar código. Sin proceso de compilación para la web.
+
+## Publicación en GitHub Pages
+
+Web: https://mariosc21.github.io/autobox-garaje/
+Repositorio: https://github.com/MarioSC21/autobox-garaje
+
+Cada cambio en main ejecuta las pruebas, genera el HTML portátil y publica dist mediante GitHub Actions. No requiere ChatGPT Sites ni un servidor propio.
+
+Al cambiar de dirección, los datos no se trasladan automáticamente: en la app anterior abre Ajustes → Datos y respaldo → Descargar copia completa; en la nueva dirección importa ese archivo. Conserva la app anterior hasta comprobar el respaldo. Luego instala la nueva web desde Chrome.
