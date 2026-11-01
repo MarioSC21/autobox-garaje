@@ -48,6 +48,8 @@ LocalStorage guarda los datos. El borrado del navegador, modo privado o cambio d
 
 ## Publicación en GitHub Pages
 
+En Ajustes → Datos y respaldo, «Compartir respaldo por WhatsApp» abre el menú de compartir del celular. Elige WhatsApp y el chat de destino. La copia contiene todos los datos y ajustes; en el otro celular se importa desde la misma sección. Si el navegador solo admite compartir texto, se envía un TXT con el mismo respaldo JSON, también importable. Si no admite compartir archivos, se descarga el JSON para adjuntarlo como documento. Cancelar el menú conserva los datos y no marca la copia como compartida.
+
 Web: https://mariosc21.github.io/autobox-garaje/
 Repositorio: https://github.com/MarioSC21/autobox-garaje
 
