@@ -1,5 +1,12 @@
 export const DEFAULTS={name:'Mi garaje',currency:'S/',capacity:40,rates:{auto:5,moto:3,camioneta:7},tolerance:10,block:60,ticketEnd:1000,nextTicket:1};
 export const fresh=()=>({version:1,settings:structuredClone(DEFAULTS),visits:[],backupAt:null});
+export function paymentTotal(gross,discount,status){
+ if(!Number.isFinite(gross)||!Number.isFinite(discount)||gross<0||discount<0||discount>gross)throw Error('La exoneración debe estar entre cero y el importe original.');
+ if(!['paid','unpaid'].includes(status))throw Error('Elige si ya pagó o no pagó.');
+ const total=Math.round((gross-discount)*100)/100;
+ if(status==='paid'&&total<=0)throw Error('El monto a cobrar debe ser mayor que cero. Para cerrar sin cobro, elige «No pagó».');
+ return total;
+}
 export function normalizePlate(s){return s.toUpperCase().replace(/[^A-Z0-9]/g,'');}
 export function matchesVehicle(v,query){const text=String(query??'').trim().toUpperCase();if(!text)return true;const code=text.match(/^(?:TK-(\d{1,8})-ABX|#?(\d{1,8}))$/);if(code&&Number(code[1]||code[2])===v.ticket)return true;const plateQuery=normalizePlate(text);return !!plateQuery&&normalizePlate(v.plate).includes(plateQuery);}
 export function formatPlate(s){
