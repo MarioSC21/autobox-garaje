@@ -1,6 +1,7 @@
 export const DEFAULTS={name:'Mi garaje',currency:'S/',capacity:40,rates:{auto:5,moto:3,camioneta:7},tolerance:10,block:60,ticketEnd:1000,nextTicket:1};
 export const fresh=()=>({version:1,settings:structuredClone(DEFAULTS),visits:[],backupAt:null});
 export function normalizePlate(s){return s.toUpperCase().replace(/[^A-Z0-9]/g,'');}
+export function matchesVehicle(v,query){const text=String(query??'').trim().toUpperCase();if(!text)return true;const code=text.match(/^(?:TK-(\d{1,8})-ABX|#?(\d{1,8}))$/);if(code&&Number(code[1]||code[2])===v.ticket)return true;const plateQuery=normalizePlate(text);return !!plateQuery&&normalizePlate(v.plate).includes(plateQuery);}
 export function formatPlate(s){
  const clean=s.toUpperCase().replace(/[^A-Z0-9-]/g,''),raw=normalizePlate(clean);
  if(/^[A-Z]{2}\d{4}$/.test(raw))return raw.slice(0,2)+'-'+raw.slice(2);

@@ -1,0 +1,3 @@
+import test from 'node:test';import assert from 'node:assert/strict';import {matchesVehicle} from '../dist/core.js';
+test('busca el ticket entero con ceros iniciales, sin ceros o con el código impreso',()=>{const v={ticket:1,plate:'ABC-123'};for(const q of ['00001','1','#00001','TK-00001-ABX',' 00001 '])assert.equal(matchesVehicle(v,q),true);assert.equal(matchesVehicle({ticket:10,plate:'XYZ-999'},'00001'),false);assert.equal(matchesVehicle({ticket:1001,plate:'XYZ-999'},'01001'),true);});
+test('conserva la búsqueda de placa completa o parcial con y sin guion',()=>{const v={ticket:8,plate:'A1B-234'};for(const q of ['a1b234','A1B-234','a1b','234',''])assert.equal(matchesVehicle(v,q),true);assert.equal(matchesVehicle(v,'ZZZ'),false);});
